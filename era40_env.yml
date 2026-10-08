@@ -1,0 +1,41 @@
+
+name: erdos_ds_era40_env 
+channels:
+  - conda-forge
+dependencies:
+  - python = 3.12
+  - pip >= 24.0
+  - pandas >= 2.0
+  - matplotlib >= 3.8
+  - scikit-learn >= 1.4
+  - pyarrow
+  - openpyxl >= 3.0
+  - sqlalchemy
+  - jupyter
+  - xgboost = 2.1.4
+  - pmdarima >= 2.0
+  - pygam
+  - interpret
+  - pandera
+  - missingno
+  - seaborn = 0.13.2
+  - plotly = 5.24.0
+  - lxml
+  - freetype = 2.13.3
+  # --- ERA-40 / GRIB handling and mapping (plot_era40_pv.py) -----------------
+  - numpy
+  - scipy
+  - eccodes >= 2.33          # ECMWF GRIB library + grib_ls / grib_copy CLI tools
+  - python-eccodes           # Python bindings to the same library
+  - cfgrib                   # optional: lets xarray open GRIB files directly
+  - xarray
+  - netcdf4                  # for the --netcdf output option
+  - cartopy >= 0.22
+  - pyproj
+  - shapely
+  - cdo                      # optional: regridding / format conversion from the shell
+  - pip:
+      - cinemagoer
+      - pynytimes
+      - pyjokes == 0.6.0
+      - ucimlrepo
