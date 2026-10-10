@@ -5,6 +5,8 @@ The data_excerpt directory contains 4 years worth of data. This will be kept wit
 Github repo for easy testing of files. The full 40 years of data (including these 4)
 will be stored on Google Drive. 
 
+Requirements.txt describes the conda environment activation. 
+
 To visualize the potential temperature theta, run this from the root (fall-2026-atmospheric-blocking)
 directory: 
 
