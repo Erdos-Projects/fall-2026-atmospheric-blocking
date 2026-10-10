@@ -1,0 +1,5 @@
+Run the following to create the new conda environment (designed to be compatible with the erdos ds environment):
+
+conda create -f erdos_ds_era40_env.yml
+conda activate erdos_ds_era40_env
+
