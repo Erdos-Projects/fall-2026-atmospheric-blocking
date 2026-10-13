@@ -16,3 +16,9 @@ The above command displays a heatmap showing the potential temperature at 2PVU a
 The below command adds arrows to the heatmap showing the direction of the wind.
 
 python plot_era40.py --theta data_excerpt/theta/theta2pvu_199812.grib --uv data_excerpt/uv/uv300_199812.grib --time 1998-12-15T12
+
+Run from the directory containing the B_ files to visualize B values: 
+
+python ~/data_science/fall-2026-atmospheric-blocking/plot_blocking.py B_199812.nc                              # time x longitude heatmap of B
+python ~/data_science/fall-2026-atmospheric-blocking/plot_blocking.py B_199812.nc B_199901.nc B_199902.nc --out w9899.png     # a whole winter
+python ~/data_science/fall-2026-atmospheric-blocking/plot_blocking.py B_199812.nc --day 1998-12-15             # longitude x CBL map for 1 day
