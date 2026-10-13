@@ -22,3 +22,20 @@ Run from the directory containing the B_ files to visualize B values:
 python ~/data_science/fall-2026-atmospheric-blocking/plot_blocking.py B_199812.nc                              # time x longitude heatmap of B
 python ~/data_science/fall-2026-atmospheric-blocking/plot_blocking.py B_199812.nc B_199901.nc B_199902.nc --out w9899.png     # a whole winter
 python ~/data_science/fall-2026-atmospheric-blocking/plot_blocking.py B_199812.nc --day 1998-12-15             # longitude x CBL map for 1 day
+
+Run from the root directory to visualize the LIB, SB, and SBE frequencies by longitude:
+
+python plot_sbe_frequency.py episodes --all
+
+To compare with MHW:
+
+python plot_sbe_frequency.py episodes --all --mhw
+
+To see the CBL plotted with the same horizontal scale:
+
+python plot_sbe_frequency.py episodes --all --mhw --cbl
+
+Look at the correlations via:
+
+python check_correlations.py episodes SBE MHW-SBE
+python check_correlations.py episodes SBE CBL

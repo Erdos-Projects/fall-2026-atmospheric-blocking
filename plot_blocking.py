@@ -11,6 +11,8 @@ say).
                    latitude heatmap, with the fixed CBL curve overlaid.
 --cbl C          : Hovmoller of B2d at central latitude C (40..64) instead of
                    the fixed-CBL B.
+A LIB_YYYY.nc / SB_YYYY.nc / SBE_YYYY.nc file (from blocking_episodes.py) is
+drawn as a two-colour 0/1 Hovmoller with the same command.
 
 Usage
     python plot_blocking.py B_199812.nc
@@ -33,7 +35,7 @@ def load(files):
     if len(parts) == 1:
         return parts[0]
     base = parts[0]
-    timed = [v for v in base.data_vars if "time" in base[v].dims]       # B, B2d, nsteps
+    timed = [v for v in base.data_vars if "time" in base[v].dims]       # B, B2d, nsteps / LIB, SB, SBE
     static = [v for v in base.data_vars if "time" not in base[v].dims]  # cbl_fixed
     ds = xr.concat([p[timed] for p in parts], dim="time").sortby("time")
     for v in static:
@@ -54,12 +56,15 @@ def hovmoller(ds, cbl=None, out=None):
     import matplotlib.pyplot as plt
     import matplotlib.dates as mdates
 
-    if cbl is None:
+    binary = next((v for v in ("LIB", "SB", "SBE") if v in ds), None)
+    if binary:                                     # 0/1 file from blocking_episodes.py
+        data, label = ds[binary], f"{binary} (1 = {ds[binary].attrs.get('long_name', binary)})"
+    elif cbl is None:
         data, label = ds.B, "B at the fixed central blocking latitude [K]"
     else:
         data, label = ds.B2d.sel(cbl=cbl), f"B at central latitude {cbl:g}N [K]"
     arr = data.values
-    vmin, vmax = sym_limits(arr)
+    vmin, vmax = (0, 1) if binary else sym_limits(arr)
     lon = ds.lon.values
     t = ds.time.values
 
@@ -68,13 +73,18 @@ def hovmoller(ds, cbl=None, out=None):
     # pcolormesh with cell edges so each day/longitude is one cell
     lon_e = np.r_[lon - 2.5, lon[-1] + 2.5]
     t_e = np.r_[t, t[-1] + np.timedelta64(1, "D")] - np.timedelta64(12, "h")
-    pm = ax.pcolormesh(lon_e, t_e, arr, cmap="RdBu_r", vmin=vmin, vmax=vmax, shading="flat")
-    ax.contour(lon, t, arr, levels=[0], colors="0.2", linewidths=0.6)
+    if binary:
+        from matplotlib.colors import ListedColormap
+        pm = ax.pcolormesh(lon_e, t_e, arr, cmap=ListedColormap(["#f2f2f2", "#1f5fa8"]), vmin=-0.5, vmax=1.5,
+                           shading="flat")
+    else:
+        pm = ax.pcolormesh(lon_e, t_e, arr, cmap="RdBu_r", vmin=vmin, vmax=vmax, shading="flat")
+        ax.contour(lon, t, arr, levels=[0], colors="0.2", linewidths=0.6)
     # thin line at each month boundary
     months = t.astype("datetime64[M]")
     for i in np.flatnonzero(months[1:] != months[:-1]) + 1:
         ax.axhline(t_e[i], color="0.3", lw=0.8)
-    cb = fig.colorbar(pm, ax=ax, pad=0.02)
+    cb = fig.colorbar(pm, ax=ax, pad=0.02, ticks=[0, 1] if binary else None)
     cb.set_label(label)
     ax.set_xlim(-2.5, 357.5)
     ax.set_xticks(np.arange(0, 360, 30))
@@ -84,8 +94,10 @@ def hovmoller(ds, cbl=None, out=None):
     ax.yaxis.set_major_locator(mdates.DayLocator(bymonthday=range(1, 30, step)))   # 1, 11, 21 (never 31)
     ax.yaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
     ax.set_ylim(t_e[-1], t_e[0])           # time runs downward
-    ax.set_title(f"Blocking index  {np.datetime_as_string(t[0], 'D')} .. {np.datetime_as_string(t[-1], 'D')}"
-                 f"   (red: theta higher poleward of the CBL)", loc="left", fontsize=10)
+    what = binary or "Blocking index"
+    tail = "" if binary else "   (red: theta higher poleward of the CBL)"
+    ax.set_title(f"{what}  {np.datetime_as_string(t[0], 'D')} .. {np.datetime_as_string(t[-1], 'D')}{tail}",
+                 loc="left", fontsize=10)
     fig.tight_layout()
     if out:
         fig.savefig(out, dpi=150)
