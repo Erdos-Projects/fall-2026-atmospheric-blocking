@@ -1,1 +1,6 @@
 __pycache__
+
+# Full ERA-40 data lives outside git (Google Drive); only data_excerpt/ is tracked
+data/
+*.grib
+!data_excerpt/**/*.grib
