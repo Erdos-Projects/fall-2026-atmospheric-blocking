@@ -30,6 +30,8 @@ Blocking is measured with an index B, the difference in potential temperature (t
 
 - [data_inventory.md](data_inventory.md): data sources, access, licensing, limitations
 - [kpis.md](kpis.md): metrics, formulas, baselines
+- [data_audit.md](data_audit.md): data audit, feature decisions, what was tried and discarded
+- [schema.json](schema.json): inputs, derived features and targets
 - [evaluation_plan.md](evaluation_plan.md): train/test split, leakage checks, stress tests, open items
 
 ## Setup
@@ -63,6 +65,8 @@ Unless noted, they read the full data or the saved B files in `results/`.
 | Notebook | Purpose |
 |---|---|
 | `eda.ipynb` | Theta and wind exploration, PCA on theta, blocking animations (uses `data_excerpt/`) |
+| `data_audit.ipynb` | Completeness of the full files; distributions, outliers, correlations and lag structure of B (training winters) |
+| `feature_selection.ipynb` | Tests what each candidate input adds to predicting tomorrow's B; writes `results/feature_selection.csv` |
 | `B Value Computation.ipynb` | B from theta following Tyrlis & Hoskins; writes `results/ERA40_B_index_daily_1957-2002_TH08.parquet`. Run this first |
 | `Blocking Frequencies - Our B vs MHW.ipynb` | Checks LIB, SB and SBE from that B against values digitized from MHW Fig. 2 |
 | `repro_MHW.ipynb` | Reproduces the central blocking latitude and tests it against the published curve |
@@ -71,7 +75,7 @@ Unless noted, they read the full data or the saved B files in `results/`.
 | `Model Simulations and Analysis.ipynb` | 1-D models of B: MHW-style AR(1), AR(2), regional models, bootstrap, state-dependent models |
 | `2_dim/2_dim_pipeline.ipynb` | Trains on 30 winters and tests on 15: eigenbasis AR(1) vs MHW-style AR(1). Needs `B_vals/` and daily theta files that are not yet in the repo |
 
-`feature_selection.ipynb` and `pipeline_demo.ipynb` are placeholders.
+`pipeline_demo.ipynb` is a placeholder; the modeling pipeline is in `2_dim/2_dim_pipeline.ipynb`.
 
 ## Command-line tools
 
