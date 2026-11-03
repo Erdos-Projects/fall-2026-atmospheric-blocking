@@ -1,0 +1,10 @@
+measure,comparison,low,high,clear_difference
+LIB,eigenbasis AR(1) minus MHW-style AR(1),-0.0021,0.0015,False
+LIB,eigenbasis AR(1) minus trivial (training-winter frequency),-0.0126,-0.0031,True
+LIB,MHW-style AR(1) minus trivial (training-winter frequency),-0.0121,-0.0027,True
+SB,eigenbasis AR(1) minus MHW-style AR(1),-0.0053,0.0157,False
+SB,eigenbasis AR(1) minus trivial (training-winter frequency),-0.0195,0.0002,False
+SB,MHW-style AR(1) minus trivial (training-winter frequency),-0.0247,-0.0042,True
+SBE,eigenbasis AR(1) minus MHW-style AR(1),-0.0119,-0.0006,True
+SBE,eigenbasis AR(1) minus trivial (training-winter frequency),-0.0127,0.0032,False
+SBE,MHW-style AR(1) minus trivial (training-winter frequency),-0.0116,0.0142,False

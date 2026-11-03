@@ -43,9 +43,8 @@ Fitted on training winters only: the climatology, eigenbasis and AR(1) coefficie
 
 ## Open items
 
-1. **B definition.** The pipeline computes B at one central latitude. Tyrlis & Hoskins and MHW take the maximum over the central latitude and 4° either side, as `notebooks/B Value Computation.ipynb` does. Frequencies differ substantially (SBE at 30°E on the test winters: 0.053 vs 0.137). The project needs one definition, or a clear statement of why there are two.
+1. **B definition.** The pipeline computes B at one central latitude. Tyrlis & Hoskins and MHW take the maximum over the central latitude and 4° either side, as `notebooks/B Value Computation.ipynb` does. Frequencies differ substantially (SBE at 30°E on the test winters: 0.053 vs 0.137). The pipeline's SB also counts a run of 3 whose center is within 20° of a longitude, so the run can extend past the 45° sector; requiring the whole run inside matches MHW better. The project needs one definition of each, or a clear statement of why there are two.
 2. **Cross-validation.** The repo has one train/test split and no cross-validation. Any cross-validation should use training winters only.
 3. **Use of test winters.** Confirm whether model settings were chosen without looking at test results. The final comparison should be run once.
-4. **Trivial baseline.** Not yet computed; see [kpis.md](kpis.md).
-5. **Significance.** The train/test comparison has no bootstrap interval yet.
-6. **Reproducibility.** `B_vals/`, `theta_native_daily/` and four scripts named in the pipeline notebook aren't in the repo: `theta_native_daily.py`, `e1_native_windows.py`, `mhw_ar1_windows.py`, `plot_test_both_models.py`. `THETA_DIR` in the notebook and a path in `e1_native_model.py` are machine-specific.
+4. **SBE against the trivial baseline.** The eigenbasis model clearly beats the MHW-style model on SBE but isn't clearly better than the trivial baseline; see [modeling_plan.md](modeling_plan.md). Presentation claims should reflect this.
+5. **Reproducibility.** `B_vals/`, `theta_native_daily/` and four scripts named in the pipeline notebook aren't in the repo: `theta_native_daily.py`, `e1_native_windows.py`, `mhw_ar1_windows.py`, `plot_test_both_models.py`. `THETA_DIR` in the notebook is machine-specific.

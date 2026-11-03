@@ -21,9 +21,9 @@ directory.  GRIB metadata (parameter, level, date/time) is copied from the
 source message; the grid becomes regular Gaussian with Ni=72, 5 deg spacing.
 
 Usage
-    python coarsen_theta_lon.py INPUT_DIR OUTPUT_DIR
-    python coarsen_theta_lon.py INPUT_DIR OUTPUT_DIR --pattern 'theta2pvu_*.grib' --overwrite
-    python coarsen_theta_lon.py --selftest
+    python src/coarsen_theta_long.py INPUT_DIR OUTPUT_DIR
+    python src/coarsen_theta_long.py INPUT_DIR OUTPUT_DIR --pattern 'theta2pvu_*.grib' --overwrite
+    python src/coarsen_theta_long.py --selftest
 
 Requirements: python-eccodes, numpy
 """

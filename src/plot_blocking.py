@@ -15,10 +15,10 @@ A LIB_YYYY.nc / SB_YYYY.nc / SBE_YYYY.nc file (from blocking_episodes.py) is
 drawn as a two-colour 0/1 Hovmoller with the same command.
 
 Usage
-    python plot_blocking.py B_199812.nc
-    python plot_blocking.py B_199812.nc B_199901.nc B_199902.nc --out winter9899.png
-    python plot_blocking.py B_199812.nc --day 1998-12-15
-    python plot_blocking.py B_199812.nc --cbl 50
+    python src/plot_blocking.py B_199812.nc
+    python src/plot_blocking.py B_199812.nc B_199901.nc B_199902.nc --out winter9899.png
+    python src/plot_blocking.py B_199812.nc --day 1998-12-15
+    python src/plot_blocking.py B_199812.nc --cbl 50
 
 Requirements: xarray, netcdf4, matplotlib
 """

@@ -31,22 +31,22 @@ RMSE weights all longitudes equally, so a small miss where blocking is rare coun
 
 | Baseline | Definition | Status |
 |---|---|---|
-| Trivial | Predict each longitude's frequency from the training winters, with no model | Planned, not yet computed |
+| Trivial | Predict each longitude's frequency from the training winters, with no model | `notebooks/modeling_baselines.ipynb` |
 | MHW-style AR(1) | `B[t+1] - mu = phi * (B[t] - mu) + eps`, with `eps` drawn from a Gaussian with tapered spatial covariance | In `2_dim/2_dim_pipeline.ipynb`. A simplified version of MHW's model, not an exact reproduction |
 
 ## Uncertainty
 
-Model differences should be compared by resampling whole winters with replacement (a block bootstrap), and improvements called significant only if the 95% interval for the RMSE difference excludes 0. `notebooks/Model Simulations and Analysis.ipynb` does this for the 1-D models; the train/test comparison doesn't have it yet.
+Model differences are compared by resampling whole winters with replacement (a block bootstrap), and improvements called significant only if the 95% interval for the RMSE difference excludes 0. See `notebooks/modeling_baselines.ipynb` for the train/test comparison and `notebooks/Model Simulations and Analysis.ipynb` for the 1-D models. Intervals are in [modeling_plan.md](modeling_plan.md).
 
 ## Current values (provisional)
 
-From `2_dim/notebook_output/frequencies_test.csv`, 15 test winters. These use the single-central-latitude B, and may change; see "Open items" in [evaluation_plan.md](evaluation_plan.md).
+From `results/model_comparison.csv`, 15 test winters. These use the pipeline's definitions of B and SB, and may change; see "Open items" in [evaluation_plan.md](evaluation_plan.md).
 
-| KPI | Eigenbasis AR(1) | MHW-style AR(1) |
-|---|---|---|
-| SBE RMSE | 0.0064 | 0.0142 |
-| LIB RMSE | 0.0132 | 0.0128 |
-| SB RMSE | 0.0242 | 0.0145 |
-| SBE, % of longitudes inside band | 86.1 | 73.6 |
-| LIB, % of longitudes inside band | 84.7 | 87.5 |
-| SB, % of longitudes inside band | 95.8 | 100.0 |
+| KPI | Trivial | MHW-style AR(1) | Eigenbasis AR(1) |
+|---|---|---|---|
+| SBE RMSE | 0.0123 | 0.0142 | 0.0064 |
+| LIB RMSE | 0.0208 | 0.0128 | 0.0132 |
+| SB RMSE | 0.0321 | 0.0145 | 0.0242 |
+| SBE, % of longitudes inside band | 79.2 | 73.6 | 86.1 |
+| LIB, % of longitudes inside band | 73.6 | 87.5 | 84.7 |
+| SB, % of longitudes inside band | 72.2 | 100.0 | 95.8 |

@@ -21,9 +21,9 @@ Two products are written per input month, into one netCDF file:
 Daily values are the average of the four 6-hourly values of that day.
 
 Usage
-    python blocking_index.py INPUT_DIR OUTPUT_DIR            # theta2pvu_YYYYMM.grib -> B_YYYYMM.nc
-    python blocking_index.py INPUT_DIR OUTPUT_DIR --pattern 'theta2pvu_*.grib' --overwrite
-    python blocking_index.py --selftest
+    python src/blocking_index.py INPUT_DIR OUTPUT_DIR            # theta2pvu_YYYYMM.grib -> B_YYYYMM.nc
+    python src/blocking_index.py INPUT_DIR OUTPUT_DIR --pattern 'theta2pvu_*.grib' --overwrite
+    python src/blocking_index.py --selftest
 
 Requirements: python-eccodes, numpy, xarray, netcdf4
 """

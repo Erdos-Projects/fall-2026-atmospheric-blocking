@@ -27,7 +27,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.expanduser("~/data-science/fall-2026-atmospheric-blocking"))
+sys.path.insert(0, os.path.join(HERE, "..", "src"))
 from ar1_sector_model import lib_sb_sbe, MHW, ALL_LONS, SECTOR          # noqa: E402
 from e1_theta_model import b_weight_matrix, b_from_daily_theta             # noqa: E402
 from coarsen_theta_long import build_matrix                                # noqa: E402

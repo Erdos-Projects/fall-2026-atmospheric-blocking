@@ -31,6 +31,7 @@ Blocking is measured with an index B, the difference in potential temperature (t
 - [data_inventory.md](data_inventory.md): data sources, access, licensing, limitations
 - [kpis.md](kpis.md): metrics, formulas, baselines
 - [data_audit.md](data_audit.md): data audit, feature decisions, what was tried and discarded
+- [modeling_plan.md](modeling_plan.md): models tried, test results, provisional final choice, what didn't work
 - [schema.json](schema.json): inputs, derived features and targets
 - [evaluation_plan.md](evaluation_plan.md): train/test split, leakage checks, stress tests, open items
 
@@ -55,8 +56,8 @@ The full data set (31 GB) is not in git. Put the monthly `e4oper.an.pv.YYYYMM` f
 | `2_dim/` | Eigenbasis AR(1) and MHW-style pipeline with its helper modules and outputs |
 | `results/` | Saved B values, seasonal central latitudes, analysis database |
 | `results/eda/` | EDA animations |
-| `episodes/` | LIB, SB and SBE per winter from `blocking_episodes.py` |
-| `*.py` (top level) | Data fetching, B and episode computation, plotting |
+| `episodes/` | LIB, SB and SBE per winter from `src/blocking_episodes.py` |
+| `src/` | Scripts, listed below |
 
 ### Notebooks
 
@@ -73,9 +74,25 @@ Unless noted, they read the full data or the saved B files in `results/`.
 | `Seasonal B Value Computation.ipynb` | Central latitude per season and B computed with it |
 | `Drift and Noise Analysis.ipynb` | How the day-to-day change in B depends on B; writes `results/ERA40_winter_B_analysis.sqlite` |
 | `Model Simulations and Analysis.ipynb` | 1-D models of B: MHW-style AR(1), AR(2), regional models, bootstrap, state-dependent models |
+| `modeling_baselines.ipynb` | Scores both models against a trivial baseline, with bootstrap intervals; writes `results/model_comparison.csv` |
 | `2_dim/2_dim_pipeline.ipynb` | Trains on 30 winters and tests on 15: eigenbasis AR(1) vs MHW-style AR(1). Needs `B_vals/` and daily theta files that are not yet in the repo |
 
 `pipeline_demo.ipynb` is a placeholder; the modeling pipeline is in `2_dim/2_dim_pipeline.ipynb`.
+
+### Scripts in `src/`
+
+| Script | Purpose |
+|---|---|
+| `fetch_era40_uv300_djf.py` | Downloads ERA-40 wind at 300 hPa from GDEX |
+| `coarsen_theta_long.py` | Averages theta from 320 to 72 longitudes |
+| `blocking_index.py` | B at one central latitude, per month (`B_YYYYMM.nc`) |
+| `blocking_episodes.py` | LIB, SB and SBE per winter from those files |
+| `plot_era40.py` | Maps of theta and wind; also the GRIB reader used by the notebooks |
+| `plot_blocking.py` | Plots of B |
+| `plot_sbe_frequency.py` | Frequencies by longitude; holds the digitized MHW curves |
+| `check_correlations.py` | Correlations between frequency curves |
+
+Notebooks import these with `sys.path.append("../src")`.
 
 ## Command-line tools
 
@@ -84,26 +101,26 @@ Run from the top-level folder.
 Plot theta, with or without wind:
 
 ```bash
-python plot_era40.py --theta data_excerpt/theta/theta2pvu_199812.grib --time 1998-12-15T12
-python plot_era40.py --theta data_excerpt/theta/theta2pvu_199812.grib --uv data_excerpt/uv/uv300_199812.grib --time 1998-12-15T12
+python src/plot_era40.py --theta data_excerpt/theta/theta2pvu_199812.grib --time 1998-12-15T12
+python src/plot_era40.py --theta data_excerpt/theta/theta2pvu_199812.grib --uv data_excerpt/uv/uv300_199812.grib --time 1998-12-15T12
 ```
 
-Plot B from `B_YYYYMM.nc` files made by `blocking_index.py`:
+Plot B from `B_YYYYMM.nc` files made by `src/blocking_index.py`:
 
 ```bash
-python plot_blocking.py B_199812.nc                                        # time x longitude heatmap
-python plot_blocking.py B_199812.nc B_199901.nc B_199902.nc --out w9899.png  # a whole winter
-python plot_blocking.py B_199812.nc --day 1998-12-15                       # longitude x central-latitude map for one day
+python src/plot_blocking.py B_199812.nc                                        # time x longitude heatmap
+python src/plot_blocking.py B_199812.nc B_199901.nc B_199902.nc --out w9899.png  # a whole winter
+python src/plot_blocking.py B_199812.nc --day 1998-12-15                       # longitude x central-latitude map for one day
 ```
 
 Plot and compare blocking frequencies:
 
 ```bash
-python plot_sbe_frequency.py episodes --all               # LIB, SB and SBE by longitude
-python plot_sbe_frequency.py episodes --all --mhw         # compare with MHW
-python plot_sbe_frequency.py episodes --all --mhw --cbl   # add the central latitude
-python check_correlations.py episodes SBE MHW-SBE
-python check_correlations.py episodes SBE CBL
+python src/plot_sbe_frequency.py episodes --all               # LIB, SB and SBE by longitude
+python src/plot_sbe_frequency.py episodes --all --mhw         # compare with MHW
+python src/plot_sbe_frequency.py episodes --all --mhw --cbl   # add the central latitude
+python src/check_correlations.py episodes SBE MHW-SBE
+python src/check_correlations.py episodes SBE CBL
 ```
 
 ## Status
