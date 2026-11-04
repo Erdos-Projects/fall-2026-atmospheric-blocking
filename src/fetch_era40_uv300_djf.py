@@ -40,9 +40,9 @@ i.e. n consecutive December-January-February seasons starting with Dec Y.
 Months outside the ERA-40 record (Sep 1957 - Aug 2002) are skipped.
 
 Usage
-    python fetch_era40_uv300_djf.py --year 1960 --nwinters 5 --out-dir era40_uv300
-    python fetch_era40_uv300_djf.py --year 1957 --nwinters 45 --out-dir era40_uv300 --workers 3
-    python fetch_era40_uv300_djf.py --year 1998 --nwinters 2 --downloader wget
+    python src/fetch_era40_uv300_djf.py --year 1960 --nwinters 5 --out-dir era40_uv300
+    python src/fetch_era40_uv300_djf.py --year 1957 --nwinters 45 --out-dir era40_uv300 --workers 3
+    python src/fetch_era40_uv300_djf.py --year 1998 --nwinters 2 --downloader wget
 
 Afterwards, e.g.
     cat era40_uv300/uv300_*.grib > uv300_1957-2002.grib

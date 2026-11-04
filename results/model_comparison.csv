@@ -1,0 +1,10 @@
+split,measure,model,rmse,rmse_low,rmse_high,pct_longitudes_inside_data_band,sector_330_90_mean
+"train 1957-86, test 1987-2001",LIB,trivial (training-winter frequency),0.0208,0.0161,0.0331,73.6111,0.1624
+"train 1957-86, test 1987-2001",LIB,MHW-style AR(1),0.0128,0.0118,0.0219,87.5,0.1545
+"train 1957-86, test 1987-2001",LIB,eigenbasis AR(1),0.0132,0.0114,0.0222,84.7222,0.1593
+"train 1957-86, test 1987-2001",SB,trivial (training-winter frequency),0.0321,0.023,0.0506,72.2222,0.2702
+"train 1957-86, test 1987-2001",SB,MHW-style AR(1),0.0145,0.0112,0.0305,100.0,0.2514
+"train 1957-86, test 1987-2001",SB,eigenbasis AR(1),0.0242,0.0163,0.0392,95.8333,0.2828
+"train 1957-86, test 1987-2001",SBE,trivial (training-winter frequency),0.0123,0.0081,0.0211,79.1667,0.059
+"train 1957-86, test 1987-2001",SBE,MHW-style AR(1),0.0142,0.0088,0.0243,73.6111,0.0236
+"train 1957-86, test 1987-2001",SBE,eigenbasis AR(1),0.0064,0.0049,0.014,86.1111,0.0417

@@ -1,0 +1,22 @@
+candidate,median_r2_gain,max_r2_gain,worst_fold_median_gain,mean_abs_corr_with_B_today,decision,reason
+"B today, 10° west",0.1385,0.1769,0.1165,0.695,not used: model limitation,"Largest gain. Current models couple longitudes symmetrically, so they cannot use its direction"
+"B today, 15° west",0.1252,0.1702,0.1047,0.4792,not used: model limitation,"Strong signal. Current models couple longitudes symmetrically, so they cannot use its direction"
+"B today, 5° west",0.1076,0.1482,0.0888,0.9015,not used: model limitation,"Strong signal. Current models couple longitudes symmetrically, so they cannot use its direction"
+northward wind: north minus south,0.0452,0.0848,0.0395,0.0836,not used: outside scope,"Largest gain outside B, but would need a wind model too. Possible extension"
+eastward wind: band average,0.0293,0.0553,0.0282,0.7572,not used: outside scope,"Moderate gain, and correlated with B. Would need a wind model too. Used only to locate the central latitude"
+"B today, 5° east",0.0222,0.0453,0.0164,0.9015,dropped,Much weaker than west; correlated with B through the noise instead
+geopotential: north minus south,0.0104,0.0425,0.0092,0.8839,dropped,Redundant with B (correlation 0.88); little gain
+pressure: north minus south,0.009,0.0314,0.0034,0.8598,dropped,Redundant with B (correlation 0.86); little gain
+"B today, 10° east",0.0066,0.0182,0.0038,0.695,dropped,Little gain
+northward wind: band average,0.0063,0.0817,0.0033,0.0981,not used: outside scope,Little typical gain; would need a wind model too
+theta: north minus south,0.0047,0.0218,0.0018,0.9062,used in models,"Basis of B, which takes the maximum of this over three central latitudes"
+humidity: north minus south,0.0042,0.017,0.0038,0.4854,dropped,Little gain
+theta: band average,0.0037,0.0275,0.0012,0.1996,dropped,Little gain; models work with theta anomalies directly
+B yesterday (lag 2),0.003,0.0104,0.0005,0.651,dropped,Little gain beyond today's B; agrees with AR(2) fitting a negative second coefficient
+eastward wind: north minus south,0.0028,0.0478,0.002,0.1815,not used: outside scope,Little gain; would need a wind model too
+pressure: band average,0.0023,0.0177,0.0014,0.1437,dropped,Little gain
+ozone: north minus south,0.002,0.0205,0.0008,0.5073,dropped,Little gain
+geopotential: band average,0.0017,0.0169,0.0012,0.1903,dropped,Little gain
+humidity: band average,0.0004,0.0167,-0.0002,0.1263,dropped,No typical gain
+"B today, 15° east",0.0003,0.0078,-0.0,0.4792,dropped,No gain
+ozone: band average,0.0001,0.004,-0.0002,0.1004,dropped,No typical gain

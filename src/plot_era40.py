@@ -13,11 +13,11 @@ narrow it with --show.
     both         -> filled contours of theta + wind vectors (speed in title)
 
 Usage
-    python plot_era40.py --theta theta2pvu_199812.grib --list
-    python plot_era40.py --theta theta2pvu_199812.grib --time 1998-12-15T12
-    python plot_era40.py --uv uv300_199812.grib --time 1998-12-15T12 --proj npstereo
-    python plot_era40.py --theta theta2pvu_199812.grib --uv uv300_199812.grib --time 1998-12-15T12 --out dec15.png
-    python plot_era40.py --theta ... --uv ... --time ... --show theta      # ignore the wind file for drawing
+    python src/plot_era40.py --theta theta2pvu_199812.grib --list
+    python src/plot_era40.py --theta theta2pvu_199812.grib --time 1998-12-15T12
+    python src/plot_era40.py --uv uv300_199812.grib --time 1998-12-15T12 --proj npstereo
+    python src/plot_era40.py --theta theta2pvu_199812.grib --uv uv300_199812.grib --time 1998-12-15T12 --out dec15.png
+    python src/plot_era40.py --theta ... --uv ... --time ... --show theta      # ignore the wind file for drawing
 
 Inputs may be GRIB (regular or reduced Gaussian grid; a reduced grid is
 interpolated to the full grid on the fly) or netCDF written by

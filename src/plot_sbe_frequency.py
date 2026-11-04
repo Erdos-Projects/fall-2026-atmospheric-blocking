@@ -12,15 +12,15 @@ days of a winter can never qualify).
 
 Every run also stores the length-72 vectors LIB, SB, SBE (this work, %),
 MHW_LIB, MHW_SB, MHW_SBE (reference, %) and CBL (deg N) in
-EPISODES_DIR/longitude_vectors.nc, for use by correlate_vectors.py.
+EPISODES_DIR/longitude_vectors.nc, for use by check_correlations.py.
 
 Usage
-    python plot_sbe_frequency.py EPISODES_DIR                 # reads SBE_*.nc
-    python plot_sbe_frequency.py EPISODES_DIR --out sbe.png
-    python plot_sbe_frequency.py EPISODES_DIR --all           # also LIB and SB (denominator: all N days)
-    python plot_sbe_frequency.py EPISODES_DIR --csv sbe.csv   # also write the numbers
-    python plot_sbe_frequency.py EPISODES_DIR --all --cbl     # add a panel with the central blocking latitude
-    python plot_sbe_frequency.py EPISODES_DIR --all --mhw     # overlay the MHW reference curves (dashed)
+    python src/plot_sbe_frequency.py EPISODES_DIR                 # reads SBE_*.nc
+    python src/plot_sbe_frequency.py EPISODES_DIR --out sbe.png
+    python src/plot_sbe_frequency.py EPISODES_DIR --all           # also LIB and SB (denominator: all N days)
+    python src/plot_sbe_frequency.py EPISODES_DIR --csv sbe.csv   # also write the numbers
+    python src/plot_sbe_frequency.py EPISODES_DIR --all --cbl     # add a panel with the central blocking latitude
+    python src/plot_sbe_frequency.py EPISODES_DIR --all --mhw     # overlay the MHW reference curves (dashed)
 
 Requirements: numpy, xarray, netcdf4, matplotlib
 """

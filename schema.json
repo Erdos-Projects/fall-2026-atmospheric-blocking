@@ -1,0 +1,28 @@
+{
+  "description": "Inputs, derived features and targets used by the blocking models. Units in kelvin unless stated.",
+  "grid": {
+    "longitude": "72 values, 0, 5, ..., 355 degrees east, for B and blocking measures; native theta grid has 320 longitudes (1.125 degrees)",
+    "latitude": "160 Gaussian latitudes (N80); the eigenbasis model uses 46 of them, 25.2 to 75.7 N, restricted further to the cells that carry B weight"
+  },
+  "time": {
+    "raw": "6-hourly, September 1957 to August 2002",
+    "modeled": "daily means, December to February; a winter is labeled by the year of its December"
+  },
+  "raw_inputs": [
+    {"name": "pt", "type": "float", "description": "Potential temperature (theta) on the 2 PVU surface", "used": true},
+    {"name": "u, v", "type": "float", "units": "m/s", "description": "Eastward and northward wind, on 2 PVU or at 300 hPa", "used": "only to locate the central latitude"},
+    {"name": "pres, z, q, o3", "type": "float", "description": "Pressure, geopotential, humidity, ozone on 2 PVU", "used": false}
+  ],
+  "derived_features": [
+    {"name": "CBL", "type": "float", "units": "degrees north", "description": "Central blocking latitude by longitude", "transformation": "Fixed curve digitized from Tyrlis & Hoskins Fig. 1; a seasonal version comes from the latitude of maximum variance of 2-6 day band-passed wind"},
+    {"name": "B", "type": "float", "description": "Blocking index by day and longitude", "transformation": "Mean theta over [CBL, CBL + 15] minus mean over [CBL - 15, CBL], daily mean. notebooks/B Value Computation.ipynb averages over a 5-degree longitude box and takes the maximum over CBL - 4, CBL, CBL + 4; 2_dim/ uses CBL only. See evaluation_plan.md, open item 1"},
+    {"name": "delta_B", "type": "float", "description": "B anomaly", "transformation": "B minus its mean or median at that longitude"},
+    {"name": "theta_anomaly", "type": "float", "description": "Theta anomaly for the eigenbasis model", "transformation": "Daily theta minus training-winter calendar-day climatology"},
+    {"name": "eigenbasis_coordinates", "type": "float", "description": "Coordinates of the theta anomaly in the eigenvectors of its day-to-day changes", "transformation": "Eigenvectors of the covariance of daily changes over training winters"}
+  ],
+  "targets": [
+    {"name": "LIB", "type": "bool", "definition": "B > 0"},
+    {"name": "SB", "type": "bool", "definition": "LIB at 3 consecutive longitudes inside the 45-degree sector centered on the longitude"},
+    {"name": "SBE", "type": "bool", "definition": "SB at the longitude on that day and the previous 4 days"}
+  ]
+}

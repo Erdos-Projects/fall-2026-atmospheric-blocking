@@ -29,6 +29,8 @@ dependencies:
   - python-eccodes           # Python bindings to the same library
   - cfgrib                   # optional: lets xarray open GRIB files directly
   - xarray
+  - eofs                      # PCA of theta in eda.ipynb
+  - imageio                   # blocking GIFs in eda.ipynb
   - netcdf4                  # for the --netcdf output option
   - cartopy >= 0.22
   - pyproj

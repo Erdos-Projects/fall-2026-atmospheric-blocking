@@ -16,9 +16,9 @@ The first four days of a winter cannot be SBE because no earlier days are in
 the record; days missing from the input are treated as SB = 0.
 
 Usage
-    python blocking_episodes.py B_DIR OUT_DIR
-    python blocking_episodes.py B_DIR OUT_DIR --overwrite
-    python blocking_episodes.py --selftest
+    python src/blocking_episodes.py B_DIR OUT_DIR
+    python src/blocking_episodes.py B_DIR OUT_DIR --overwrite
+    python src/blocking_episodes.py --selftest
 
 Requirements: numpy, xarray, netcdf4
 """

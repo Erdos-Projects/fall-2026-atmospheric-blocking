@@ -1,6 +1,14 @@
-__pycache__
+# Python and Jupyter
+__pycache__/
+.ipynb_checkpoints/
 
-# Full ERA-40 data lives outside git (Google Drive); only data_excerpt/ is tracked
+# macOS
+.DS_Store
+
+# Full ERA-40 data and large derived arrays live outside git (see data_inventory.md).
+# Only data_excerpt/ is tracked.
 data/
+B_vals/
+theta_native_daily/
 *.grib
 !data_excerpt/**/*.grib

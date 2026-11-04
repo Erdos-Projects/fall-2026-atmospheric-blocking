@@ -6,9 +6,9 @@ plot_sbe_frequency.py in EPISODES_DIR/longitude_vectors.nc.
 Vectors:  LIB  SB  SBE  MHW-LIB  MHW-SB  MHW-SBE  CBL
 
 Usage
-    python correlate_vectors.py EPISODES_DIR SBE MHW-SBE
-    python correlate_vectors.py EPISODES_DIR SBE CBL --plot          # scatter + fit
-    python correlate_vectors.py EPISODES_DIR --matrix                # all pairs
+    python src/check_correlations.py EPISODES_DIR SBE MHW-SBE
+    python src/check_correlations.py EPISODES_DIR SBE CBL --plot          # scatter + fit
+    python src/check_correlations.py EPISODES_DIR --matrix                # all pairs
 
 Reports the Pearson correlation (with the least-squares slope and intercept)
 and the Spearman rank correlation.  The p-values assume 72 independent
