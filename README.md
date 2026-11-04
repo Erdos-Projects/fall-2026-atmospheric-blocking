@@ -31,6 +31,7 @@ Blocking is measured with an index B, the difference in potential temperature (t
 - [data_inventory.md](data_inventory.md): data sources, access, licensing, limitations
 - [kpis.md](kpis.md): metrics, formulas, baselines
 - [data_audit.md](data_audit.md): data audit, feature decisions, what was tried and discarded
+- [presentation/summary.md](presentation/summary.md): executive summary, the best place to start
 - [modeling_plan.md](modeling_plan.md): models tried, test results, provisional final choice, what didn't work
 - [schema.json](schema.json): inputs, derived features and targets
 - [evaluation_plan.md](evaluation_plan.md): train/test split, leakage checks, stress tests, open items

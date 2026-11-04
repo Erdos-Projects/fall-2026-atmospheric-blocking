@@ -70,7 +70,7 @@ The trivial baseline's limits matter too. It gives only frequency curves: it can
 
 Reasons for caution:
 - **Complexity.** It has far more fitted quantities than the alternatives. The guide asks for clear cross-validated improvement to justify this, and the repo has a single split so far.
-- **Stationarity.** Some fitted coefficients reach 1 (largest 1.003). That does no harm over 5-day runs, but the model can't be run freely for long, so it can't be directly compared with MHW's free-running results.
+- **Stationarity.** Seven of the 2,589 fitted coefficients are at or above 1 (largest 1.003). That does no harm over 5-day runs, but the model can't be run freely for long, so it can't be directly compared with MHW's free-running results.
 - **Direction.** Tomorrow's B depends on longitudes to the west far more than to the east (see [data_audit.md](data_audit.md)). Neither AR(1) appears able to use this.
 - **Different experiment.** Both models start from observed states, so a good SBE score partly reflects those starts. This differs from MHW's question of whether red noise alone produces the observed episodes.
 
