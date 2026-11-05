@@ -6,7 +6,7 @@ All source data is the ECMWF ERA-40 reanalysis, distributed by the NCAR Geoscien
 
 | Data | Source | Contents | Where it is | Size |
 |---|---|---|---|---|
-| Full 2 PVU fields | [GDEX d117004](https://gdex.ucar.edu/datasets/d117004/), DOI 10.5065/KHN2-AC11 | 540 monthly files `e4oper.an.pv.YYYYMM`. Each holds theta (`pt`), pressure, geopotential, u, v, humidity and ozone on the 2 PVU surface; reduced Gaussian N80 grid | `data/` (not in git); team Google Drive | 31 GB |
+| Full 2 PVU fields | [GDEX d117004](https://gdex.ucar.edu/datasets/d117004/), DOI 10.5065/KHN2-AC11 | 540 monthly files `e4oper.an.pv.YYYYMM`. Each holds theta (`pt`), pressure, geopotential, u, v, humidity and ozone on the 2 PVU surface; reduced Gaussian N80 grid | `data/` (ignored by git); team Google Drive | 31 GB |
 | Excerpt: theta on 2 PVU | Extracted from d117004 | `data_excerpt/theta/theta2pvu_YYYYMM.grib`: theta only, regular Gaussian grid, 320 x 160 | Git | 142 MB |
 | Excerpt: wind at 300 hPa | [GDEX d117001](https://gdex.ucar.edu/datasets/d117001/), DOI 10.5065/WQZB-A142, via `src/fetch_era40_uv300_djf.py` | `data_excerpt/uv/uv300_YYYYMM.grib`: u and v, regular Gaussian grid, 320 x 160. `vod300_YYYYMM.grib`: the vorticity and divergence they were computed from. `template.json`: download byte offsets | Git | 426 MB |
 
@@ -15,6 +15,7 @@ The excerpt covers 4 winters: December 1998 to February 2002, December-February 
 ## Access
 
 - **Full 2 PVU files:** download from GDEX d117004, or copy from the team's Google Drive folder. Place them directly in `data/`.
+- **Daily theta:** copy the `THETA_DIR` folder from the team's Google Drive to any location, then set `THETA_DIR` in the notebook that uses it.
 - **Wind at 300 hPa:** `python src/fetch_era40_uv300_djf.py --year 1957 --nwinters 45 --out-dir era40_uv300`. Needs `cdo`, which is in `environment.yml`.
 - **Licence:** both GDEX data sets are CC BY 4.0. Downloading them also implies accepting ECMWF's Terms of Use.
 
@@ -22,14 +23,19 @@ The excerpt covers 4 winters: December 1998 to February 2002, December-February 
 
 | Data | Made by | Where it is |
 |---|---|---|
+| Daily-mean theta, native grid: 45 files `theta_daily_YYYY.npz`, 794 MB | Daily mean of the 4 analyses in `theta2pvu_YYYYMM.grib`. The script, `theta_native_daily.py`, isn't in the repo | `THETA_DIR` on the team's Google Drive |
+| Monthly B, `B_YYYYMM.nc`, 135 files | `src/blocking_index.py` | `B_vals/`, ignored by git |
 | Daily B, Tyrlis & Hoskins method | `notebooks/B Value Computation.ipynb` | `results/ERA40_B_index_daily_1957-2002_TH08.parquet` |
 | Daily B, seasonal central latitude | `notebooks/Seasonal B Value Computation.ipynb` | `results/ERA40_B_index_daily_1957-2002_seasonal-CBL.parquet` |
 | Central latitude by season, 1979-1993 | `notebooks/Seasonal B Value Computation.ipynb` | `results/ERA40_CBL_by_season_1979-1993.csv` |
 | Drift and noise tables | `notebooks/Drift and Noise Analysis.ipynb` | `results/ERA40_winter_B_analysis.sqlite` |
 | LIB, SB, SBE per winter, 45 winters | `src/blocking_episodes.py`, from `B_YYYYMM.nc` | `episodes/` |
-| Monthly B, `B_YYYYMM.nc` | `src/blocking_index.py` | `B_vals/`: not in git |
-| Daily-mean theta, native grid | `theta_native_daily.py`: not in repo yet | `theta_native_daily/`, 794 MB: not in git |
 | Model fits, simulations, test frequencies | `2_dim/2_dim_pipeline.ipynb` | `2_dim/notebook_output/` |
+| Regional AR(1) scores, frequencies and figures | `notebooks/Model Simulations and Analysis.ipynb` | `results/regional_ar1/` |
+
+**Checks on derived data:**
+- Daily means of the excerpt's winter 1998 files match `theta_daily_1998.npz` to 0.00002 K.
+- B computed from the daily theta files reproduces the pipeline's saved test frequencies exactly, for LIB, SB and SBE.
 
 ## Limitations
 
@@ -41,5 +47,6 @@ The excerpt covers 4 winters: December 1998 to February 2002, December-February 
 
 ## Still to document
 
-- How `data_excerpt/theta/` was extracted from d117004 (no script in the repo).
+- How `theta2pvu_YYYYMM.grib` was made from d117004, including the step onto the regular grid. The repo holds these files for 4 winters.
+- Where `B_vals/` is shared.
 - Download dates for the full files.

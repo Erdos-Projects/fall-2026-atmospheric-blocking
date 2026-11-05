@@ -14,15 +14,16 @@
     {"name": "pres, z, q, o3", "type": "float", "description": "Pressure, geopotential, humidity, ozone on 2 PVU", "used": false}
   ],
   "derived_features": [
-    {"name": "CBL", "type": "float", "units": "degrees north", "description": "Central blocking latitude by longitude", "transformation": "Fixed curve digitized from Tyrlis & Hoskins Fig. 1; a seasonal version comes from the latitude of maximum variance of 2-6 day band-passed wind"},
-    {"name": "B", "type": "float", "description": "Blocking index by day and longitude", "transformation": "Mean theta over [CBL, CBL + 15] minus mean over [CBL - 15, CBL], daily mean. notebooks/B Value Computation.ipynb averages over a 5-degree longitude box and takes the maximum over CBL - 4, CBL, CBL + 4; 2_dim/ uses CBL only. See evaluation_plan.md, open item 1"},
-    {"name": "delta_B", "type": "float", "description": "B anomaly", "transformation": "B minus its mean or median at that longitude"},
+    {"name": "CBL", "type": "float", "units": "degrees north", "description": "Central blocking latitude by longitude", "transformation": "Fixed curve digitized from Tyrlis & Hoskins Fig. 1"},
+    {"name": "B", "type": "float", "description": "Blocking index by day and longitude", "transformation": "Mean theta over [CBL, CBL + 15] minus mean over [CBL - 15, CBL], daily mean, averaged over a 5-degree longitude box", "published_variant": "Maximum over CBL - 4, CBL, CBL + 4 (notebooks/B Value Computation.ipynb)"},
+    {"name": "B_anomaly", "type": "float", "description": "B minus its mean at that longitude", "transformation": "Mean over training winters"},
     {"name": "theta_anomaly", "type": "float", "description": "Theta anomaly for the eigenbasis model", "transformation": "Daily theta minus training-winter calendar-day climatology"},
-    {"name": "eigenbasis_coordinates", "type": "float", "description": "Coordinates of the theta anomaly in the eigenvectors of its day-to-day changes", "transformation": "Eigenvectors of the covariance of daily changes over training winters"}
+    {"name": "eigenbasis_coordinates", "type": "float", "description": "Coordinates of the theta anomaly in the eigenvectors of its day-to-day changes", "transformation": "Eigenvectors of the covariance of daily changes over training winters"},
+    {"name": "region", "type": "category", "description": "Longitude group sharing one memory value in the regional AR(1) model", "transformation": "7 regions read off Tyrlis & Hoskins Fig. 3b"}
   ],
   "targets": [
     {"name": "LIB", "type": "bool", "definition": "B > 0"},
-    {"name": "SB", "type": "bool", "definition": "LIB at 3 consecutive longitudes inside the 45-degree sector centered on the longitude"},
-    {"name": "SBE", "type": "bool", "definition": "SB at the longitude on that day and the previous 4 days"}
+    {"name": "SB", "type": "bool", "definition": "A run of 3 consecutive LIB longitudes centered within 20 degrees of the longitude", "published_variant": "The whole run lies inside the 45-degree sector centered on the longitude"},
+    {"name": "SBE", "type": "bool", "definition": "SB at the longitude on all 5 days of a window", "published_variant": "SB at the longitude on that day and the previous 4 days"}
   ]
 }

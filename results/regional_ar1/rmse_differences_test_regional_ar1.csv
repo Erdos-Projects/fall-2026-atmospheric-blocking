@@ -1,0 +1,10 @@
+measure,comparison,low,high,clear_difference
+LIB,th08_regions minus mhw,0.00206,0.00598,True
+LIB,th08_regions minus eigenbasis,0.00312,0.00569,True
+LIB,th08_regions minus trivial,-0.00824,0.00139,False
+SB,th08_regions minus mhw,-0.00505,0.00882,False
+SB,th08_regions minus eigenbasis,-0.00841,0.00125,False
+SB,th08_regions minus trivial,-0.02103,-0.00500,True
+SBE,th08_regions minus mhw,-0.00649,-0.00110,True
+SBE,th08_regions minus eigenbasis,-0.00098,0.00574,False
+SBE,th08_regions minus trivial,-0.01284,0.00822,False
